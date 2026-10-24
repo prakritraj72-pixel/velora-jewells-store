@@ -108,3 +108,4 @@ with check ((select auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 revoke all on public.orders, public.order_items, public.payment_events, public.order_status_history from anon, authenticated;
 revoke insert, update, delete on public.cart_events from anon, authenticated;
 grant select on public.products to anon, authenticated;
+grant insert, update, delete on public.products to authenticated; -- RLS limits these operations to admins
