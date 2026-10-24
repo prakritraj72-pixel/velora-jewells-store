@@ -61,8 +61,9 @@ async function loadLiveCatalog(){
  const {data,error}=await veloraDb.from("products").select("id,slug,name,description,category,price_paise,stock_qty,image_urls,is_published").eq("is_published",true).order("created_at",{ascending:false});
  if(error){
   console.error("Velora catalog could not load",error);
+  products=[];cart=[];renderProducts();renderCart();
   const note=document.querySelector("#shop .small");
-  if(note)note.textContent="Live catalog could not load. Please refresh later; checkout remains disabled.";
+  if(note)note.textContent="Live catalog is temporarily unavailable. Please refresh later; checkout remains disabled.";
   return;
  }
  products=(data||[]).map(p=>({...p,price:Number(p.price_paise)/100,icon:p.category==="Rings"?"◈":p.category==="Chains"?"⛓":p.category==="Bracelets"?"⌁":"✟"}));
